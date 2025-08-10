@@ -1,11 +1,9 @@
 <script lang="ts">
    import { EmptyApplicationShell } from '#runtime/svelte/component/application';
    import Panel from './Panel.svelte'
-   import Skills from './Skills.svelte'
    import Attacks from './Attacks.svelte'
    import Features from './Features.svelte'
    import Domains from './Domains.svelte'
-   import Items from './Items.svelte'
    import Portrait from './Portrait.svelte'
    import Stats from './Stats.svelte'
 
