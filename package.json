@@ -1,0 +1,31 @@
+{
+  "name": "dh-hud",
+  "description": "Token hud for DH",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#runtime/*": "@typhonjs-fvtt/runtime/*",
+    "#standard/*": "@typhonjs-fvtt/standard/*",
+    "#constants": "./src/constants.ts",
+    "#gameSettings": "./src/gameSettings.ts"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@typhonjs-fvtt/runtime": "^0.2.0",
+    "@typhonjs-fvtt/standard": "^0.2.0",
+    "svelte": "^4.2.19"
+  },
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^12.331.3-beta",
+    "typescript": "^5.7.3"
+  },
+  "browserslist": [
+    ">5%",
+    "not IE 11"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  }
+}

@@ -1,0 +1,36 @@
+.dh-hud {
+    --z-index-app: 30;
+    --font-size: 14px;
+    --dh-hud-panel-gap: 5px;
+    --players-width: 200px;
+    --hotbar-height: 52px;
+    --hud-height: 8em;
+    --dh-hud-panel-gap: 5px;
+    --interface-margin: 15px;
+    --section-gap: 0.1em 0.4em;
+    --info-width: 2.24em;
+    --special-width:  2.8em;
+    --one-three-rows: 1.1fr 3fr 0;
+    --panel-padding-block: 0.2em;
+    --panel-padding-inline: 0.3em;
+    --inline-gap: 0.2em;
+    --outer-background: url("../../../ui/denim075.png") repeat #4d4d4d;
+    --input-width: 2.4em;
+    --input-background: rgb(255 255 255 / 8%);
+    --color-shadow-primary: #ff0000;
+    --panel-padding: 5px;
+
+    max-height: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 20px var(--color-shadow-dark);
+    margin: 3px 0;
+    padding: 0.5em;
+    color: var(--color-text-light-highlight);
+    z-index: var(--z-index-app);
+}
+
+#position-basic-overlay {
+    position: static;
+    overflow: initial;
+    contain: initial;
+}

@@ -1,0 +1,61 @@
+{
+  "id": "dh-hud",
+  "title": "dh-hud",
+  "description": "Adds token action hud for players and GM",
+  "authors": [
+    {
+      "name": "chrisjbrown",
+      "url": "https://github.com/chrisjbrown"
+    }
+  ],
+  "version": "0.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "esmodules": [
+    "dist/dh-hud.js"
+  ],
+  "styles": [
+    "dist/dh-hud.css"
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "daggerheart",
+        "type": "system",
+        "manifest": "https://github.com/Siggysaw/fallout-arcane-arcade/releases/latest/download/system.json",
+        "compatibility": {
+          "minimum": "0.1.0"
+        }
+      }
+    ]
+  },
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "json"
+      ],
+      "paths": [
+        "lang"
+      ]
+    }
+  },
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "url": "https://github.com/chrisjbrown/dh-hud",
+  "readme": "https://github.com/chrisjbrown/dh-hud/blob/master/README.md",
+  "bugs": "https://github.com/chrisjbrown/dh-hud/issues",
+  "changelog": "https://github.com/chrisjbrown/dh-hud/releases/latest/",
+  "manifest": "This is auto replaced",
+  "download": "This is auto replaced",
+  "socket": false,
+  "protected": false,
+  "coreTranslation": false,
+  "library": false
+}
