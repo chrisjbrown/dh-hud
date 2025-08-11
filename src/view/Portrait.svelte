@@ -53,7 +53,7 @@
         <div class="bottom">
             {#if resources?.armor}
             <!-- armor -->
-            <div class="stat" data-tooltip="Armor">
+            <div class="stat" data-tooltip="Armor" data-tooltip-direction="UP">
                 <div class="icon">
                     <i class="fa-solid fa-shield"></i>
                 </div>
@@ -69,7 +69,7 @@
 
             {#if resources?.hitPoints}
             <!-- health -->
-            <div class="stat" data-tooltip="Health points">
+            <div class="stat" data-tooltip="Health" data-tooltip-direction="UP">
                 <div class="icon">
                     <i class="fa-solid fa-heart"></i>
                 </div>
@@ -85,9 +85,9 @@
 
             {#if resources?.stress}
             <!-- stress -->
-            <div class="stat" data-tooltip="Stress points" on:input={(e) => onAttributeChange(e, 'stress')}>
+            <div class="stat" data-tooltip="Stress" data-tooltip-direction="RIGHT" on:input={(e) => onAttributeChange(e, 'stress')}>
                 <div class="icon">
-                    <i class="fa-solid fa-droplet"></i>
+                    <i class="fa-solid fa-bolt"></i>
                 </div>
                 <div class="field">
                     <input type="number" value={resources?.stress?.value} />
@@ -101,9 +101,9 @@
 
             {#if resources?.hope}
             <!-- hope -->
-            <div class="stat" data-tooltip="Hope points">
+            <div class="stat" data-tooltip="Hope" data-tooltip-direction="RIGHT">
                 <div class="icon">
-                    <i class="fa-solid fa-bolt"></i>
+                    <i class="fa-solid fa-star"></i>
                 </div>
                 <div class="field">
                     <input type="number" value={resources?.hope?.value} on:input={(e) => onAttributeChange(e, 'hope')} />

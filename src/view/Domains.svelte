@@ -14,7 +14,7 @@
 <Popover component={ItemsPopover} props={{ items: domains }}>
   <div class="domains { domains?.length === 0 ? 'fade' : '' }">
     <!-- svelte-ignore a11y-missing-attribute -->
-    <a data-tooltip="domains" role="button">
+    <a data-tooltip="Domains" role="button">
       <i class="fa-solid fa-book"></i>
     </a>
   </div>

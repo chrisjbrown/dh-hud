@@ -14,7 +14,7 @@
 <Popover component={ItemsPopover} props={{ items: features }}>
   <div class="features { features?.length === 0 ? 'fade' : '' }">
     <!-- svelte-ignore a11y-missing-attribute -->
-    <a data-tooltip="features" role="button">
+    <a data-tooltip="Features" role="button">
       <i class="fa-solid fa-bolt"></i>
     </a>
   </div>

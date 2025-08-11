@@ -5,7 +5,7 @@
 
   $: traits = Object.keys(actor?.system?.traits).map((key) => ({
     key: key,
-    label: key,
+    label: key.capitalize(),
     icon: `fa-solid fa-${getIconByKey(key)}`,
     value: actor?.system?.traits[key]?.value || 0,
   }));
@@ -47,6 +47,7 @@
                 <a
                     class="trait"
                     data-tooltip="{trait.label}"
+                    data-tooltip-direction="RIGHT"
                     role="button"
                     tabindex="0"
                     on:click={(e) => rollTrait(e, trait.key)}
