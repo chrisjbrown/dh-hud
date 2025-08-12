@@ -32,7 +32,6 @@
 
    function setActor() {
       actor = getActor()
-      console.log('actor', actor)
    }
 
    Hooks.on('controlToken', setActor);
