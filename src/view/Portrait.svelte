@@ -3,6 +3,7 @@
   export let actor = null
 
 	$: ({ resources } = actor?.system);
+	$: ({ name, img } = actor);
 
    const getAttribute = (key: string) => {
       switch (key) {
@@ -29,9 +30,9 @@
       timer = setTimeout(() => {
          const attrKey = getAttribute(attribute)
          try {
-               actor.update({ [attrKey]: newValue })
+            actor.update({ [attrKey]: newValue })
          } catch (error) {
-               console.error('dh-hud', `Error updating actor attribute: ${attribute}`, error)
+            console.error('dh-hud', `Error updating actor attribute: ${attribute}`, error)
          }
       }, 750);
     }
@@ -43,12 +44,12 @@
 
 <div class="portrait">
     <div class="top">
-       {#if actor?.name}
-          {actor?.name}
+       {#if name}
+          {name}
        {/if}
     </div>
-    {#if actor?.img}
-       <div class="avatar" style="background-image: url({actor?.img});"/>
+    {#if img}
+       <div class="avatar" style="background-image: url({img});"/>
     {/if}
         <div class="bottom">
             {#if resources?.armor}

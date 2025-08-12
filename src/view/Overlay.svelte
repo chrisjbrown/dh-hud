@@ -1,10 +1,8 @@
 <script lang="ts">
    import { EmptyApplicationShell } from '#runtime/svelte/component/application';
-   import Panel from './Panel.svelte'
-   import Attacks from './Attacks.svelte'
-   import Features from './Features.svelte'
-   import Domains from './Domains.svelte'
    import Portrait from './Portrait.svelte'
+   import Panel from './Panel.svelte'
+   import Items from './Items.svelte'
    import Stats from './Stats.svelte'
 
    type Actor = {
@@ -14,8 +12,12 @@
 
    export let elementRoot = void 0;
    let actor: Actor = null;
+   let attacks: Array = []
+   let features: Array = []
+   let domains: Array = []
+   let consumables: Array = []
 
-   function getActor() {
+   const getActor = () => {
       if (game.user.isGM) {
          if (canvas.tokens.controlled.length === 0) return actor || null
          return canvas.tokens.controlled[0].document.actor
@@ -30,8 +32,38 @@
       }
    }
 
-   function setActor() {
+   const resetItems = () => {
+      attacks = []
+      features = []
+      domains = []
+      consumables = []
+   }
+
+   const setActor = () => {
+      resetItems()
       actor = getActor()
+
+      for (const item of actor?.items || []) {
+         switch (item.type) {
+            case 'weapon':
+               attacks.push(item)
+               break
+            case 'feature':
+               features.push(item)
+               break
+            case 'domainCard':
+               domains.push(item)
+               break
+            case 'consumable':
+               consumables.push(item)
+               break
+         }
+      }
+
+      // If the actor is an adversary, check for a system attack
+      if (actor?.type === 'adversary' && actor?.system?.attack) {
+         attacks.push(actor.system.attack);
+      }
    }
 
    Hooks.on('controlToken', setActor);
@@ -56,21 +88,16 @@
    <div class="overlay" role="application">
       {#if actor}
          <Portrait actor={actor} />
-         {#if actor?.type === 'character'}
-            <Stats actor={actor} />
-         {/if}
-         <div>
-            <Panel>
-               <div class="horizontal">
-                  <Attacks actor={actor} />
-                  <Features actor={actor} />
-                  <Domains actor={actor} />
-                  <!-- <Items actorUuid={actor.uuid} equipables={equipables} consumables={consumables} /> -->
-                  <!-- <Common actorUuid={actor.uuid} /> -->
-               </div>
-            </Panel>
-         </div>
       {/if}
+      {#if actor?.type === 'character'}
+         <Stats actor={actor} />
+      {/if}
+      <Panel>
+         <Items items={attacks} icon="fa-sword" tooltip="Attacks" />
+         <Items items={features} icon="fa-bolt" tooltip="Features" />
+         <Items items={domains} icon="fa-book" tooltip="Domains" />
+         <Items items={consumables} icon="fa-wine-bottle" tooltip="Consumables" />
+      </Panel>
    </div>
 </EmptyApplicationShell>
 

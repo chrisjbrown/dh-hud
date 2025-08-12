@@ -20,7 +20,15 @@
         const renderedComponent = document.querySelector(`#${id}`);
 
         popperInstance = createPopper(ref, renderedComponent, {
-            placement: 'top'
+            placement: props?.placement || 'top',
+            modifiers: [
+                {
+                    name: 'offset',
+                    options: {
+                        offset: [0, 4]
+                    }
+                }
+            ]
         });
 
         document.addEventListener('click', detectClickOutside)

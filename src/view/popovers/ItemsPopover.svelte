@@ -4,8 +4,14 @@
   export let id = null
   const dispatch = createEventDispatcher();
 
-  const dispatchItemRoll = (item) => {
-    item.use({})
+  const dispatchItemRoll = async (item) => {
+    const actions = new Set(item.system.actionsList);
+    if (actions.size === 0) {
+      item.toChat(item.uuid)
+      return;
+    } else {
+      item.use({})
+    }
   }
 </script>
 
