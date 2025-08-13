@@ -55,7 +55,7 @@ jobs:
 
          # Publish the release to FoundryVTT's package repository.
          - name: Publish Module to FoundryVTT Website
-           uses: Varriount/fvtt-autopublish@latest
+           uses: Varriount/fvtt-autopublish@main
            with:
             username: ${{ secrets.FOUNDRY_ADMIN_USERNAME }}
             password: ${{ secrets.FOUNDRY_ADMIN_PASSWORD }}
