@@ -5,35 +5,31 @@
 	$: ({ resources } = actor?.system);
 	$: ({ name, img } = actor);
 
-   const getAttribute = (key: string) => {
-      switch (key) {
-         case 'hitPoints':
-            return 'system.resources.hitPoints.value';
-         case 'hope':
-            return 'system.resources.hope.value';
-         case 'stress':
-            return 'system.resources.stress.value';
-         case 'armor':
-            return 'system.resources.armor.value';
-         default:
-            return '';
-      }
-   }
-
    let timer: NodeJS.Timeout
     const updateAttribute = (event: any, key) => {
       debounceUpdateActor(Number(event.target.value), key)
     }
 
+    const updateArmor = (newValue: number) => {
+        actor.sheet.updateArmorMarks({
+            currentTarget: {
+                value: newValue
+            }
+        })
+    }
+
     const debounceUpdateActor = (newValue: number, attribute: string) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
-         const attrKey = getAttribute(attribute)
-         try {
-            actor.update({ [attrKey]: newValue })
-         } catch (error) {
+        try {
+            if (attribute === 'armor') {
+                updateArmor(newValue);
+            } else {
+                actor.update({ [`system.resources.${attribute}.value`]: newValue })
+            }
+        } catch (error) {
             console.error('dh-hud', `Error updating actor attribute: ${attribute}`, error)
-         }
+        }
       }, 750);
     }
 
@@ -49,7 +45,7 @@
        {/if}
     </div>
     {#if img}
-       <div class="avatar" style="background-image: url({img});"/>
+       <div class="avatar" style="background-image: url({img});" on:click={(e) => game.toggleCharacterSheet()}/>
     {/if}
         <div class="bottom">
             {#if resources?.armor}
@@ -59,7 +55,7 @@
                     <i class="fa-solid fa-shield"></i>
                 </div>
                 <div class="field">
-                    <input type="number" value={resources?.armor.value} on:input={(e) => onAttributeChange(e, 'armor')} />
+                    <input type="number" value={resources?.armor.value} max={resources?.armor.max} on:input={(e) => onAttributeChange(e, 'armor')} />
                     <div class="max">
                         <div>/</div>
                         <div>{resources?.armor?.max}</div>
@@ -75,7 +71,7 @@
                     <i class="fa-solid fa-heart"></i>
                 </div>
                 <div class="field">
-                    <input type="number" value={resources?.hitPoints.value} on:input={(e) => onAttributeChange(e, 'hitPoints')} />
+                    <input type="number" value={resources?.hitPoints.value} max={resources?.hitPoints.max} on:input={(e) => onAttributeChange(e, 'hitPoints')} />
                     <div class="max">
                         <div>/</div>
                         <div>{resources?.hitPoints?.max}</div>
@@ -91,7 +87,7 @@
                     <i class="fa-solid fa-bolt"></i>
                 </div>
                 <div class="field">
-                    <input type="number" value={resources?.stress?.value} />
+                    <input type="number" value={resources?.stress?.value} max={resources?.stress.max} />
                     <div class="max">
                         <div>/</div>
                         <div>{resources?.stress?.max}</div>
@@ -107,7 +103,7 @@
                     <i class="fa-solid fa-star"></i>
                 </div>
                 <div class="field">
-                    <input type="number" value={resources?.hope?.value} on:input={(e) => onAttributeChange(e, 'hope')} />
+                    <input type="number" value={resources?.hope?.value} max={resources?.hope.max} on:input={(e) => onAttributeChange(e, 'hope')} />
                     <div class="max">
                         <div>/</div>
                         <div>{resources?.hope?.max}</div>
@@ -145,6 +141,7 @@
             background-size: cover;
             width: 100%;
             height: 100%;
+            cursor: pointer;
         }
 
         .bottom {
