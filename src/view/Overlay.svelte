@@ -42,6 +42,9 @@
    const setActor = () => {
       resetItems()
       actor = getActor()
+      if (!actor) return;
+      const subclass = actor.items.find(i => i.type === 'subclass');
+      const subclassState = subclass?.system?.featureState;
 
       for (const item of actor?.items || []) {
          switch (item.type) {
@@ -49,7 +52,22 @@
                attacks.push(item)
                break
             case 'feature':
-               features.push(item)
+               // Only include subclass features if the subclass is active and the feature type matches the subclass state
+               if (subclass && item.system.originItemType === CONFIG.DH.ITEM.featureTypes.subclass.id) {
+                  const featureType = subclass
+                     ? (subclass.system.features.find(x => x.item?.uuid === item.uuid)?.type ?? null)
+                     : null;
+
+                  if (
+                     featureType === CONFIG.DH.ITEM.featureSubTypes.foundation ||
+                     (featureType === CONFIG.DH.ITEM.featureSubTypes.specialization && subclassState >= 2) ||
+                     (featureType === CONFIG.DH.ITEM.featureSubTypes.mastery && subclassState >= 3)
+                  ) {
+                     features.push(item)
+                  }
+               } else {
+                  features.push(item)
+               }
                break
             case 'domainCard':
                domains.push(item)
@@ -88,16 +106,16 @@
    <div class="overlay" role="application">
       {#if actor}
          <Portrait actor={actor} />
+         {#if actor?.type === 'character'}
+            <Stats actor={actor} />
+         {/if}
+         <Panel>
+            <Items items={attacks} icon="fa-sword" tooltip="Attacks" />
+            <Items items={features} icon="fa-award" tooltip="Features" />
+            <Items items={domains} icon="fa-book" tooltip="Domains" />
+            <Items items={consumables} icon="fa-wine-bottle" tooltip="Consumables" />
+         </Panel>
       {/if}
-      {#if actor?.type === 'character'}
-         <Stats actor={actor} />
-      {/if}
-      <Panel>
-         <Items items={attacks} icon="fa-sword" tooltip="Attacks" />
-         <Items items={features} icon="fa-bolt" tooltip="Features" />
-         <Items items={domains} icon="fa-book" tooltip="Domains" />
-         <Items items={consumables} icon="fa-wine-bottle" tooltip="Consumables" />
-      </Panel>
    </div>
 </EmptyApplicationShell>
 

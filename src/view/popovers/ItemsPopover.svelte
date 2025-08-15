@@ -5,6 +5,11 @@
   const dispatch = createEventDispatcher();
 
   const dispatchItemRoll = async (item) => {
+    if (item.type === 'attack') {
+      item.use({})
+      return
+    }
+
     const actions = new Set(item.system.actionsList);
     if (actions.size === 0) {
       item.toChat(item.uuid)
